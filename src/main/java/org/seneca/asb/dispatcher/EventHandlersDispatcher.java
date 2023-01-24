@@ -14,10 +14,10 @@ public class EventHandlersDispatcher {
     private final Set<String> received = ConcurrentHashMap.newKeySet();
 
     public void dispatchToHandler(ServiceBusReceivedMessage message) {
-        log.info("Received event from topic with message id: {}", message.getMessageId());
-        received.add(message.getMessageId());
+        log.info("Received event from topic with correlation id: {}", message.getCorrelationId());
+        received.add(message.getCorrelationId());
         ServiceBusMessageConverter.from(message, BasicEvent.class);
         //possible further processing
-        log.info("Event from topic with message id: {} has been processed", message.getMessageId());
+        log.info("Event from topic with message id: {} has been processed", message.getCorrelationId());
     }
 }

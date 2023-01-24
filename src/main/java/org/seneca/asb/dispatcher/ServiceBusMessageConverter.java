@@ -16,8 +16,8 @@ public class ServiceBusMessageConverter {
             return OBJECT_MAPPER.readValue(message.getBody().toBytes(), type);
         } catch (IOException e) {
             throw new MessageProcessingException(
-                    String.format("Service bus message with id %s can not be converted to class %s",
-                            message.getMessageId(), type.getSimpleName()), e);
+                    String.format("Service bus message with correlation id %s can not be converted to class %s",
+                            message.getCorrelationId(), type.getSimpleName()), e);
         }
     }
 

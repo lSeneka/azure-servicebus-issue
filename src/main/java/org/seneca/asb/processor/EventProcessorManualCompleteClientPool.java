@@ -55,8 +55,7 @@ public class EventProcessorManualCompleteClientPool extends EventProcessorClient
                                             message.getMessageId(),
                                             message.getCorrelationId(),
                                             messageContext.getEntityPath(),
-                                            message.getDeliveryCount() + 1,
-                                            throwable
+                                            message.getDeliveryCount() + 1
                                     );
                                     messageContext.abandon();
                                 }

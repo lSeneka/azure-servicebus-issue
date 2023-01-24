@@ -1,5 +1,7 @@
 plugins {
-    id("java")
+    java
+    groovy
+    idea
 }
 
 group = "org.seneca"
@@ -7,6 +9,10 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -25,16 +31,11 @@ dependencies {
     //vavr
     implementation("io.vavr", "vavr", "0.10.4")
 
-    //junit
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-
-    //await
-    testImplementation("org.awaitility", "awaitility", "4.2.0")
-
-    testImplementation("org.assertj","assertj-core","3.6.1")
+    //spock
+    testImplementation("org.spockframework","spock-core","2.3-groovy-4.0")
+    testImplementation("org.apache.groovy","groovy-all", "4.0.7")
 }
 
-tasks.getByName<Test>("test") {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }

@@ -8,7 +8,6 @@ import java.time.Duration;
 @Getter
 @Builder
 public class EventProcessorConfigProps {
-    private boolean autoCompleteDisabled;
     private String connection;
     private String entityPath;
     private String subscription;
