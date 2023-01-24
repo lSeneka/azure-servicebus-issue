@@ -15,7 +15,8 @@ public class EventHandlersDispatcher {
 
     public void dispatchToHandler(ServiceBusReceivedMessage message) {
         log.info("Received event from topic with correlation id: {}", message.getCorrelationId());
-        received.add(message.getCorrelationId());
+        //just for issue testing purpose: to have a possibility to check that the dispatcher was involved
+        this.received.add(message.getCorrelationId());
         ServiceBusMessageConverter.from(message, BasicEvent.class);
         //possible further processing
         log.info("Event from topic with message id: {} has been processed", message.getCorrelationId());

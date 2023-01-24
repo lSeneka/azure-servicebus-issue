@@ -2,7 +2,6 @@ package org.seneca.asb.client
 
 import com.azure.messaging.servicebus.ServiceBusMessage
 import com.azure.messaging.servicebus.ServiceBusSenderClient
-import groovy.util.logging.Slf4j
 import org.seneca.asb.processor.InvalidMessage
 
 abstract class AbstractServiceBusSenderClient implements AutoCloseable {

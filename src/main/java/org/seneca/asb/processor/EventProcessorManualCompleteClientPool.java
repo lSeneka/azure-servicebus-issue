@@ -42,12 +42,15 @@ public class EventProcessorManualCompleteClientPool extends EventProcessorClient
 
         this.clients.forEach(ServiceBusProcessorClient::start);
         log.info("Event processor client pool with size = {} for topic '{}' and subscription '{}' has been successfully initialized",
-                clients.size(), eventProcessorConfigProps.getEntityPath(), eventProcessorConfigProps.getSubscription());
+                this.clients.size(),
+                eventProcessorConfigProps.getEntityPath(),
+                eventProcessorConfigProps.getSubscription()
+        );
     }
 
     private Consumer<ServiceBusReceivedMessageContext> buildMessageContextConsumer() {
         return messageContext ->
-                Try.run(() -> dispatcher.dispatchToHandler(messageContext.getMessage()))
+                Try.run(() -> this.dispatcher.dispatchToHandler(messageContext.getMessage()))
                         .onSuccess(unused -> messageContext.complete())
                         .onFailure(throwable -> {
                                     var message = messageContext.getMessage();
@@ -55,7 +58,8 @@ public class EventProcessorManualCompleteClientPool extends EventProcessorClient
                                             message.getMessageId(),
                                             message.getCorrelationId(),
                                             messageContext.getEntityPath(),
-                                            message.getDeliveryCount() + 1
+                                            message.getDeliveryCount() + 1,
+                                            throwable
                                     );
                                     messageContext.abandon();
                                 }

@@ -34,14 +34,17 @@ public class EventProcessorAutoCompleteClientPool extends EventProcessorClientPo
                         () -> this.buildClient(
                                 clientBuilder,
                                 eventProcessorConfigProps,
-                                messageContext -> dispatcher.dispatchToHandler(messageContext.getMessage()))
+                                messageContext -> this.dispatcher.dispatchToHandler(messageContext.getMessage()))
                 )
                 .limit(eventProcessorConfigProps.getFactoriesCount())
                 .toList();
 
         this.clients.forEach(ServiceBusProcessorClient::start);
         log.info("Event processor client pool with size = {} for topic '{}' and subscription '{}' has been successfully initialized",
-                clients.size(), eventProcessorConfigProps.getEntityPath(), eventProcessorConfigProps.getSubscription());
+                this.clients.size(),
+                eventProcessorConfigProps.getEntityPath(),
+                eventProcessorConfigProps.getSubscription()
+        );
     }
 
     private ServiceBusProcessorClient buildClient(ServiceBusClientBuilder clientBuilder,

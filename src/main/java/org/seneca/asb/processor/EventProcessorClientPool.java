@@ -16,7 +16,7 @@ public abstract class EventProcessorClientPool implements AutoCloseable {
 
     protected void logError(ServiceBusErrorContext errorContext) {
         log.error("Error occurred during message processing, errorSource {}, azure namespace {}, entity path {}",
-                errorContext.getErrorSource(), errorContext.getFullyQualifiedNamespace(), errorContext.getEntityPath());
+                errorContext.getErrorSource(), errorContext.getFullyQualifiedNamespace(), errorContext.getEntityPath(), errorContext.getException());
     }
 
     @Override
