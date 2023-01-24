@@ -80,7 +80,8 @@ git clone https://github.com/lSeneka/azure-servicebus-issue.git
     static def subscription = "PLACE HERE SUB"
 ```
 accordingly to the properties of the entity, created on the first step
-5) There is 2 tests placed in **EventProcessorClientPoolSpec**. 
+
+5) There are 2 tests placed in **EventProcessorClientPoolSpec**. 
    - ```groovy
      "should put messages to the DLQ in case of any unhandled exception during handling of an event by processor with disabled auto complete"   
      ```
@@ -93,11 +94,12 @@ accordingly to the properties of the entity, created on the first step
     Both of these tests do pretty much the same:
     1. Creates a set of invalid messages (3 messages)
     2. Sends these messages to the topic by means of test client sender **ServiceBusTopicSenderClient**
-    3. Creates a **processor** and thereby start reading messages from the subscription
+    3. Creates a **processor** and thereby starts reading messages from the subscription
     4. Check if the count messages processed by **EventHandlersDispatcher.dispatchToHandler** is equals to the expected size of sent messages
     5. Then reads all the messages from the DLQ expecting that all sent messages should end up there.
-    6. Checks if subscription is empty by means of test receiver client **ServiceBusTopicReceiverClient**
+    6. Checks if the subscription is empty by means of test receiver client **ServiceBusTopicReceiverClient**
     7. Check if DLQ for the subscription is empty by means of test DLQ receiver client **ServiceBusDLQForTopicReceiverClient**
 
-    >The only difference is that: one of test uses **EventProcessorManualCompleteClientPool** and sucessfuly passes and another uses **EventProcessorAutoCompleteClientPool** and always failes
+    
+>The only difference is that: one of test uses **EventProcessorManualCompleteClientPool** and successfully passes and another uses **EventProcessorAutoCompleteClientPool** and always fails
   
